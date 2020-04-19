@@ -72,8 +72,8 @@ config = {
         OP.SCALAR_VECTOR_PRODUCT_OP,
         OP.VECTOR_SUM_OP,
     ],
-    "population_size": 500,  # 1000
-    "selection_size": 5,  # 10
+    "population_size": 1000,  # 1000
+    "selection_size": 10,  # 10
     "learn_size_init": 8,
     "setup_size_init": 10,
     "predict_size_init": 2,

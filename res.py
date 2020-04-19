@@ -65,5 +65,6 @@ class Population:
 if __name__ == "__main__":
     population = Population()
     df = pd.read_csv("mnist_test.csv")
-    train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
-    population.generation(1000, (train_df, test_df))
+    _, small_df = train_test_split(df, test_size=0.02, random_state=42)
+    train_df, test_df = train_test_split(small_df, test_size=0.5, random_state=42)
+    population.generation(10000, (train_df, test_df))
