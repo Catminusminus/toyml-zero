@@ -27,15 +27,21 @@ def MatrixInAddress():
 
 
 def ScalarOutAddress():
-    return random.choice(range(config.kFirstOutScalarAddress, config.kMaxScalarAddresses))
+    return random.choice(
+        range(config.kFirstOutScalarAddress, config.kMaxScalarAddresses)
+    )
 
 
 def VectorOutAddress():
-    return random.choice(range(config.kFirstOutVectorAddress, config.kMaxVectorAddresses))
+    return random.choice(
+        range(config.kFirstOutVectorAddress, config.kMaxVectorAddresses)
+    )
 
 
 def MatrixOutAddress():
-    return random.choice(range(config.kFirstOutMatrixAddress, config.kMaxMatrixAddresses))
+    return random.choice(
+        range(config.kFirstOutMatrixAddress, config.kMaxMatrixAddresses)
+    )
 
 
 def UniformActivation(low, high):
