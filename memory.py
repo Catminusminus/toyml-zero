@@ -1,4 +1,5 @@
 import config
+import numpy as np
 
 
 class Memory:
@@ -7,7 +8,15 @@ class Memory:
 
     @classmethod
     def oneIfPredictIsAccurateElseZero(cls):
-        return cls.scalar[config.kPredictionsScalarAddress]
+        return (
+            1
+            if np.abs(
+                cls.scalar[config.kLabelsScalarAddress]
+                - cls.scalar[config.kPredictionsScalarAddress]
+            )
+            < 0.5
+            else 0
+        )
 
     @classmethod
     def wipe(cls):
