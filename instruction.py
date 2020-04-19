@@ -3,6 +3,7 @@ from enum_switch import Switch
 import random
 from memory import Memory
 import numpy as np
+import gen
 
 
 class Instruction:
@@ -260,7 +261,7 @@ class Instruction:
 
             def VECTOR_INNER_PRODUCT_OP(this):
                 Memory.vector[self.out_] = np.dot(
-                    Memory.vector[self.in1_] * Memory.vector[self.in2_]
+                    Memory.vector[self.in1_], Memory.vector[self.in2_]
                 )
 
             def SCALAR_DIFF_OP(this):

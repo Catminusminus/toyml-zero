@@ -4,6 +4,7 @@ import config
 import gen
 from enum_switch import Switch
 import random
+from memory import Memory
 
 
 class ComponentFunction:
@@ -50,7 +51,7 @@ class Algorithm:
             def RANDOMIZE_COMPONENT_FUNCTION_MUTATION_TYPE(this):
                 component.randomize()
 
-        randomize_dict = RandomDict()
+        randomize_dict = RandomDict(MUTATION_TYPE)
         mutation_type = random.choice(list(MUTATION_TYPE))
         randomize_dict(mutation_type)
 
@@ -64,26 +65,27 @@ class Algorithm:
         self.mutate(self.learn_)
 
     def train(self, train_data):
-        for data in train_data:
-            Memory.vector[config.kFeaturesVectorAddress] = data.features
-            Memory.scalar[config.kLabelsScalarAddress] = data.label
+        Y, X = train_data["label"].values, train_data.drop("label", axis=1).values
+        Memory.wipe()
+        for x, y in zip(X, Y):
+            Memory.vector[config.kFeaturesVectorAddress] = x
+            Memory.scalar[config.kLabelsScalarAddress] = y
             self.setup_.execute()
             self.predict_.execute()
             self.learn_.execute()
 
     def test(self, test_data):
         count = 0
-        for data in test_data:
-            Memory.vector[config.kFeaturesVectorAddress] = data.features
-            Memory.scalar[config.kLabelsScalarAddress] = data.label
+        Y, X = test_data["label"].values, test_data.drop("label", axis=1).values
+        Memory.wipe()
+        for x, y in zip(X, Y):
+            Memory.vector[config.kFeaturesVectorAddress] = x
+            Memory.scalar[config.kLabelsScalarAddress] = y
             self.setup_.execute()
             self.predict_.execute()
             count += Memory.oneIfPredictIsAccurateElseZero()
         return count / len(test_data)
 
     def evaluate(self, train_data, test_data):
-        self.setup_.execute()
-        self.learn_.execute(train_data)
-        self.predict_.execute(test_data)
         self.train(train_data)
         return self.test(test_data)

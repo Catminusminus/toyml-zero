@@ -1,4 +1,5 @@
 import random
+import config
 
 
 def gen_setup_ops(config_):
@@ -14,27 +15,27 @@ def gen_learn_ops(config_):
 
 
 def ScalarInAddress():
-    return random.choice(range(0, kMaxScalarAddresses))
+    return random.choice(range(0, config.kMaxScalarAddresses))
 
 
 def VectorInAddress():
-    return random.choice(range(0, kMaxVectorAddresses))
+    return random.choice(range(0, config.kMaxVectorAddresses))
 
 
 def MatrixInAddress():
-    return random.choice(range(0, kMaxMatrixAddresses))
+    return random.choice(range(0, config.kMaxMatrixAddresses))
 
 
 def ScalarOutAddress():
-    return random.choice(range(kFirstOutScalarAddress, kMaxScalarAddresses))
+    return random.choice(range(config.kFirstOutScalarAddress, config.kMaxScalarAddresses))
 
 
 def VectorOutAddress():
-    return random.choice(range(kFirstOutVectorAddress, kMaxVectorAddresses))
+    return random.choice(range(config.kFirstOutVectorAddress, config.kMaxVectorAddresses))
 
 
 def MatrixOutAddress():
-    return random.choice(range(kFirstOutMatrixAddress, kMaxMatrixAddresses))
+    return random.choice(range(config.kFirstOutMatrixAddress, config.kMaxMatrixAddresses))
 
 
 def UniformActivation(low, high):
