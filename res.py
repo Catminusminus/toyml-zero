@@ -2,6 +2,7 @@ from algorithm import Algorithm
 import config
 import random
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 
 # Regularized evolutionary search
@@ -44,13 +45,13 @@ class Population:
 
     def select(self, train_data, test_data):
         selected = random.sample(self.choromosomes, self.T)
-        scores = [chromosome.evaluate(train_data, test_data) for hromosome in selected]
+        scores = [chromosome.evaluate(train_data, test_data) for chromosome in selected]
 
         print(f"best score: {np.max(scores)}")
 
         selected_index = np.argmax(scores)
 
-        self.copy(selected(selected_index))
+        self.copy(selected[selected_index])
         self.remove(0)
 
     def generation(self, max_iteration, data):
@@ -61,16 +62,8 @@ class Population:
             self.mutate()
 
 
-class Data:
-    def __init__(self, df):
-        self.features = df.drop("label", axis=1)
-        self.label = df["label"]
-
-
 if __name__ == "__main__":
     population = Population()
     df = pd.read_csv("mnist_test.csv")
     train_df, test_df = train_test_split(df)
-    train_data, test_data = Data(train_df), Data(test_df)
-
-    population.generation(1000, (train_data, test_data))
+    population.generation(1000, (train_df, test_df))
