@@ -66,6 +66,7 @@ class Algorithm:
 
     def train(self, train_data):
         Y, X = train_data["label"].values, train_data.drop("label", axis=1).values
+        Memory.wipe()
         for x, y in zip(X, Y):
             Memory.vector[config.kFeaturesVectorAddress] = x
             Memory.scalar[config.kLabelsScalarAddress] = y
@@ -75,7 +76,8 @@ class Algorithm:
 
     def test(self, test_data):
         count = 0
-        X, Y = test_data["label"], test_data.drop("label", axis=1)
+        Y, X = test_data["label"].values, test_data.drop("label", axis=1).values
+        Memory.wipe()
         for x, y in zip(X, Y):
             Memory.vector[config.kFeaturesVectorAddress] = x
             Memory.scalar[config.kLabelsScalarAddress] = y
